@@ -1,9 +1,8 @@
-import './App.css';
-import { useState,useEffect } from 'react';
+import "./App.css";
+import { useState, useEffect } from "react";
+import { marked } from "marked";
 
 function App() {
-  // fetch text data from txt
-  const initText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia beatae maxime fugit? Quos, minima. Eaque reprehenderit sed, ullam temporibus odit quod nemo, illo quae pariatur quam placeat debitis ad. Sint."
   const [text, setText] = useState("");
 
   const handleChange = (event) => {
@@ -11,7 +10,7 @@ function App() {
   };
 
   const fetchText = () => {
-    let url = 'http://localhost:3000/init-text.txt';
+    let url = "http://localhost:3000/init-text.txt";
     fetch(url)
       .then((res) => res.text())
       .then((data) => {
@@ -22,13 +21,33 @@ function App() {
 
   useEffect(() => {
     fetchText();
-  }, []); 
+  }, []);
+
+  marked.setOptions({
+    breaks: true,
+  });
 
   return (
     <div className="App">
-      <textarea name="editor-text" id="editor" rows="10" cols="50" onChange={handleChange} value={text}></textarea>
-      <div id="preview">
-        <p>{text}</p>
+      <div id="editor-container" className="editor-container">
+        <h3 className="title">Editor:</h3>
+        <textarea
+          name="editor-text"
+          id="editor"
+          className="editor"
+          // rows="30"
+          // cols="100"
+          onChange={handleChange}
+          value={text}
+        ></textarea>
+      </div>
+      <div id="preview-container" className="preview-container">
+        <h3 className="title">Preview:</h3>
+        <div
+          id="preview"
+          className="preview"
+          dangerouslySetInnerHTML={{ __html: marked(text) }}
+        ></div>
       </div>
     </div>
   );
