@@ -12,11 +12,10 @@ function App() {
   };
 
   const fetchText = () => {
-    let url = "http://localhost:3000/init-text.txt";
+    let url = "/markdown-previewer/init-text.txt";
     fetch(url)
       .then((res) => res.text())
       .then((data) => {
-        console.log(data);
         setText(data);
       });
   };
