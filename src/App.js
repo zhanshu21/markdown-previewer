@@ -1,6 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import { marked } from "marked";
+import { Editor } from "./components/Editor";
+import { Preview } from "./components/Preview";
 
 function App() {
   const [text, setText] = useState("");
@@ -29,26 +31,8 @@ function App() {
 
   return (
     <div className="App">
-      <div id="editor-container" className="editor-container">
-        <h3 className="title">Editor:</h3>
-        <textarea
-          name="editor-text"
-          id="editor"
-          className="editor"
-          // rows="30"
-          // cols="100"
-          onChange={handleChange}
-          value={text}
-        ></textarea>
-      </div>
-      <div id="preview-container" className="preview-container">
-        <h3 className="title">Preview:</h3>
-        <div
-          id="preview"
-          className="preview"
-          dangerouslySetInnerHTML={{ __html: marked(text) }}
-        ></div>
-      </div>
+      <Editor text={text} handleChange={handleChange} />
+      <Preview text={text} />
     </div>
   );
 }
